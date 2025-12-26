@@ -3,6 +3,14 @@
 - [Git](#git)
   - [Introduction](#introduction)
     - [Snapshot](#snapshot)
+    - [Working Flow](#working-flow)
+      - [Working Directory](#working-directory)
+      - [Staging Area](#staging-area)
+      - [Repository](#repository)
+  - [Actions](#actions)
+    - [diff](#diff)
+    - [rm](#rm)
+    - [mv](#mv)
   - [Issue](#issue)
   - [Commit](#commit)
     - [Verb](#verb)
@@ -15,10 +23,101 @@ Git 是一種分散式版本控制系統(**Distributed Version Control System**)
 
 ### Snapshot
 
-可以看到，Git 使用的方式，每個版本都會進行一次快照，即使該檔案沒被更動，也還是會記錄在新的版本中。
+可以看到，Git 使用的方式，每個版本都會進行一次快照，即使該檔案沒被更動，也還是會記錄一次在新的版本中。
 
-ss
 ![snapshot](../Git-new/images/snapshot-flow.jpg)
+
+### Working Flow
+
+#### Working Directory
+
+首先，這個地方就是你的本機檔案。
+
+接著你修改了檔案，本地已修改，Git 也知道你修改了，但是你必須進行 Snapshot 讓 Git 知道你要把當前的版本暫存起來。
+
+```bash
+git add <filename>
+```
+
+#### Staging Area
+
+接著剛剛被快照的檔案會被放在這個暫存區中。
+暫存區可以讓我們在要儲存到 Repository 的時候可以思考是否真的要放到儲存庫中。
+
+舉例，Staging Area 有 Ａ、Ｂ、Ｃ 三個快照，但你的主管臨時說這次的更新只能有 A 跟 Ｂ，那你就可以只儲存 Ａ、B。
+
+而我們一直用快照的概念是因為，對於 Git 來說你快照後，若繼續修改 A 或者是 Ｂ 的檔案，並不會影響到 Staging Area 的快照。
+
+可以使用 `git status` 來確認當前暫存區的狀態
+
+```bash
+git status
+```
+
+![](../Git-new/images/file-flow.png)
+
+若確定沒問題，則可以保存到 Repository 中。
+
+```bash
+git commit -m "your message"
+```
+
+![](../Git-new/images/first-commit.png)
+
+#### Repository
+
+在這個地方我們可以使用 `git log --oneline` 來查看目前所有的紀錄
+
+```bash
+git log --oneline
+```
+
+![](../Git-new/images/commits.png)
+
+可以發現 `30e27b3` 就是剛剛 commit 的雜湊 ID
+
+## Actions
+
+### diff
+
+比對本地版本和當前 Staging Area 的快照差異
+
+```bash
+git diff
+git diff <filename>
+```
+
+比對最後一次 commit 的紀錄和當前在 Staging Area 的快照差異
+
+```bash
+git diff --staged
+git diff --staged <filename>
+
+```
+
+### rm
+
+從 Staging Area 移除該檔案的快照
+
+```bash
+git rm --cache <filename>
+```
+
+![](../Git-new/images/rm-cache.png)
+
+注意！這個指令是會連同 Working Directory 也一併刪掉，並不是刪除快照
+
+```bash
+git rm <filename>
+```
+
+### mv
+
+修改工作區的檔案名稱，並且
+
+```
+
+```
 
 ## Issue
 
