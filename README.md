@@ -11,6 +11,7 @@
     - [diff](#diff)
     - [rm](#rm)
     - [mv](#mv)
+    - [reset](#reset)
   - [Issue](#issue)
   - [Commit](#commit)
     - [Verb](#verb)
@@ -113,11 +114,47 @@ git rm <filename>
 
 ### mv
 
-修改工作區的檔案名稱，並且
+修改工作區的檔案名稱，並且在 Git 中標記為 `renamed`
+
+此部分已提交至 Repository
 
 ```
+//renameFile
+This is second commit
+```
+
+接著在 Working Directory 修改為以下內容
 
 ```
+//renameFile
+This is third commit
+```
+
+並且改名至 file
+![](../Git-new/images/mv.png)
+
+我們可以發現對於 Git 來說，標記為改名後，實際上就是執行了以下的操作:
+
+1. `mv <a> <b>`
+2. `git rm <a>`
+3. `git add <b>`
+
+![](../Git-new/images/mv-info.png)
+
+### reset
+
+原本打算分兩次進行 commit，但是不小心也把 `images/mv.png`也放到 Staging Area
+
+![](../Git-new/images/reset-1.png)
+
+我們可以使用 `reset HEAD` 來讓快照從 Staging Area 退出。
+
+```bash
+git reset HEAD <filename>
+```
+
+可以看到 `images/mv.png` 的快照被移除了
+![](../Git-new/images/reset-2.png)
 
 ## Issue
 
