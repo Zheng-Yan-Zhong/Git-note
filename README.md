@@ -12,6 +12,14 @@
     - [rm](#rm)
     - [mv](#mv)
     - [reset](#reset)
+    - [checkout](#checkout)
+    - [restore](#restore)
+    - [log](#log)
+    - [merge](#merge)
+  - [Branch](#branch)
+    - [New Branch](#new-branch)
+    - [Hotfix](#hotfix)
+    - [Good Habits](#good-habits)
   - [Issue](#issue)
   - [Commit](#commit)
     - [Verb](#verb)
@@ -76,6 +84,12 @@ git log --oneline
 ![](../Git-new/images/commits.png)
 
 可以發現 `30e27b3` 就是剛剛 commit 的雜湊 ID
+
+當然，想要更詳細的可以使用
+
+```
+git log
+```
 
 ## Actions
 
@@ -156,11 +170,141 @@ git reset HEAD <filename>
 可以看到 `images/mv.png` 的快照被移除了
 ![](../Git-new/images/reset-2.png)
 
+### checkout
+
+checkout 可以讓檔案恢復到上一次 committed 的內容，但是，若已經加入到 Staging Area，則必須先使用 [restore](#restore)，再進行 checkout
+
+首先，下面的文字是已經 committed
+
+```
+//file
+Hello my friends
+```
+
+但是，我對於這次的修改不滿意，想回到上面的那個版本
+
+```
+//file
+Hello my friends
+
+The section is loren.
+```
+
+使用下面的指令可以讓修改的部分回到上一次 committed 的內容
+
+```bash
+git checkout -- <filename>
+```
+
+![](../Git-new/images/git-checkout-file.png)
+
+### restore
+
+此方法適用於已儲存在 Staging Area 的快照，我們將它移出，但是還不會遺忘此次的修改。
+所以，必須接續使用 `checkout`
+
+```bash
+git restore --staged <filename>
+git checkout -- <filename>
+```
+
+![](../Git-new/images/git-restore.png)
+![](../Git-new/images/git-checkout-file.png)
+
+### log
+
+查看所有的 commit
+
+```bash
+git log
+```
+
+![](../Git-new/images/git-log.png)
+
+```bash
+git log --oneline
+```
+
+![](../Git-new/images/git-log-online.png)
+
+當然也可以搭配 `-1 or -n` 來查看倒數幾筆
+
+```bash
+git log -2
+or
+git log --oneline -2
+```
+
+![](../Git-new/images/git-log-oneline-tail2.png)
+
+### merge
+
+首先大部分人的 remote 應該都是叫 `origin`，所以先抓取遠端的版本，並且切換到目標分支，接著將新功能合併至當前的分支。
+
+```bash
+git fetch origin
+git checkout <targebranch>
+git merge feature/login
+```
+
+## Branch
+
+查看當前所有分支
+
+```bash
+git branch
+```
+
+![](./images/git-branch-list.png)
+
+### New Branch
+
+```bash
+git branch <branchname>
+or
+git checkout -b <branchname>
+```
+
+![](./images/git-new-branch.png)
+這邊要注意，開立分支會依照你當前的分支進行建立喔！
+所以我們要養成好習慣，先抓取最新的遠端版本，但是還不會更動到你的 Working Directory，也可以避免因為合併上游的程式碼，讓你目前感到困惑。
+
+```bash
+git fetch
+```
+
+後續，覺得沒問題了，你可以再進行合併。
+
+```
+git merge
+```
+
+常見的 Git 開發分支會有：
+
+1. Master - 上線版本
+2. Test - 測試版本
+3. Features - 新功能追加，基於 Test 版本
+
+### Hotfix
+
+通常上線了一版到正式環境，但還是會有漏網之魚(bug)，所以這時候我們必須在上線版本(master)的基礎上開一個緊急修補的分支(patch)。
+並且經過測試後確認沒問題了，將其合併回 master。
+
+！！！注意，這邊很多人會忘記也要將修補的分支合併到 Test。
+
+### Good Habits
+
+1. 在開分支、開發功能前，一定先 fetching remote 版本
+2. 儲存庫要限制 Pull Request
+3. 不能讓當前要合併的分支落後遠端版本
+4. 禁止直接 Push 至主線分支
+5. [Hotfix 習慣](#hotfix)
+
 ## Issue
 
 ## Commit
 
-Git commit 盡量為單一事件，也就是說，如果你為了做一個 User 的 CRUD，一定會安裝到套件，或是建立 utils，這時候，建議為以下:
+Git commit 盡量為單一事件，也就是說，如果你為了做一個 user 的 CRUD，一定會安裝到套件，或是建立 utilities，這時候，建議為以下:
 
 ```bash
 git commit -m "build: install mysql2 for database connection"
