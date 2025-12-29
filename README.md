@@ -34,7 +34,7 @@ Git 是一種分散式版本控制系統(**Distributed Version Control System**)
 
 可以看到，Git 使用的方式，每個版本都會進行一次快照，即使該檔案沒被更動，也還是會記錄一次在新的版本中。
 
-![snapshot](../Git-new/images/snapshot-flow.jpg)
+![snapshot](./images/snapshot-flow.jpg)
 
 ### Working Flow
 
@@ -63,7 +63,7 @@ git add <filename>
 git status
 ```
 
-![](../Git-new/images/file-flow.png)
+![](./images/file-flow.png)
 
 若確定沒問題，則可以保存到 Repository 中。
 
@@ -71,7 +71,7 @@ git status
 git commit -m "your message"
 ```
 
-![](../Git-new/images/first-commit.png)
+![](./images/first-commit.png)
 
 #### Repository
 
@@ -81,7 +81,7 @@ git commit -m "your message"
 git log --oneline
 ```
 
-![](../Git-new/images/commits.png)
+![](./images/commits.png)
 
 可以發現 `30e27b3` 就是剛剛 commit 的雜湊 ID
 
@@ -118,7 +118,7 @@ git diff --staged <filename>
 git rm --cache <filename>
 ```
 
-![](../Git-new/images/rm-cache.png)
+![](./images/rm-cache.png)
 
 注意！這個指令是會連同 Working Directory 也一併刪掉，並不是刪除快照
 
@@ -145,7 +145,7 @@ This is third commit
 ```
 
 並且改名至 file
-![](../Git-new/images/mv.png)
+![](./images/mv.png)
 
 我們可以發現對於 Git 來說，標記為改名後，實際上就是執行了以下的操作:
 
@@ -153,13 +153,13 @@ This is third commit
 2. `git rm <a>`
 3. `git add <b>`
 
-![](../Git-new/images/mv-info.png)
+![](./images/mv-info.png)
 
 ### reset
 
 原本打算分兩次進行 commit，但是不小心也把 `images/mv.png`也放到 Staging Area
 
-![](../Git-new/images/reset-1.png)
+![](./images/reset-1.png)
 
 我們可以使用 `reset HEAD` 來讓快照從 Staging Area 退出。
 
@@ -168,7 +168,7 @@ git reset HEAD <filename>
 ```
 
 可以看到 `images/mv.png` 的快照被移除了
-![](../Git-new/images/reset-2.png)
+![](./images/reset-2.png)
 
 ### checkout
 
@@ -196,7 +196,7 @@ The section is loren.
 git checkout -- <filename>
 ```
 
-![](../Git-new/images/git-checkout-file.png)
+![](./images/git-checkout-file.png)
 
 ### restore
 
@@ -208,8 +208,8 @@ git restore --staged <filename>
 git checkout -- <filename>
 ```
 
-![](../Git-new/images/git-restore.png)
-![](../Git-new/images/git-checkout-file.png)
+![](./images/git-restore.png)
+![](./images/git-checkout-file.png)
 
 ### log
 
@@ -219,13 +219,13 @@ git checkout -- <filename>
 git log
 ```
 
-![](../Git-new/images/git-log.png)
+![](./images/git-log.png)
 
 ```bash
 git log --oneline
 ```
 
-![](../Git-new/images/git-log-online.png)
+![](./images/git-log-online.png)
 
 當然也可以搭配 `-1 or -n` 來查看倒數幾筆
 
@@ -235,7 +235,7 @@ or
 git log --oneline -2
 ```
 
-![](../Git-new/images/git-log-oneline-tail2.png)
+![](./images/git-log-oneline-tail2.png)
 
 ### merge
 
