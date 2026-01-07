@@ -16,6 +16,7 @@
     - [restore](#restore)
     - [log](#log)
     - [merge](#merge)
+    - [stash](#stash)
   - [Branch](#branch)
     - [New Branch](#new-branch)
     - [Hotfix](#hotfix)
@@ -245,6 +246,48 @@ git log --oneline -2
 git fetch origin
 git checkout <targebranch>
 git merge feature/login
+```
+
+### stash
+
+有時候當你需要停下手邊的進度，前往新的分支完成其它項目後，再將主分支合併到當前的分支，那你就必須讓工作區乾淨才能切換到別的分支，這時候 `stash` 可以幫助你暫存所有的檔案。
+
+- -u - 包含未追蹤檔案
+- -m - 留下 memo
+
+```bash
+git stash push -u -m
+```
+
+目前檔案狀態如下，包含已追蹤、未追蹤檔案
+![](./images/stash-1.png)
+
+```bash
+git stash push -u -m "developing header component"
+```
+
+![](./images/stash-push.png)
+
+查看當前的 stash 列表
+
+```bash
+git stash list
+```
+
+![](./images/stash-list.png)
+
+將 stash 放回原本工作區，並且刪除該 stash
+
+```bash
+git stash pop @{0}
+or
+git stash pop @{n}
+```
+
+清除所有 stash
+
+```bash
+git stash clear
 ```
 
 ## Branch
