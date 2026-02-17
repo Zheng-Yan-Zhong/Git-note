@@ -24,6 +24,7 @@
   - [Issue](#issue)
   - [Commit](#commit)
     - [Verb](#verb)
+  - [PR](#pr)
 
 ## Introduction
 
@@ -373,3 +374,20 @@ git commit -m "feat: add user routes"
 | refactor | 重構程式碼        | refactor: simplify password hashing logic       |
 | modify   | 修改內容          | modify: add dockerfile and .sql into .gitignore |
 | build    | 安裝套件          | build: install dayjs for date formatting        |
+| chore    | 小功能、工具      | chore: add converting variable tool             |
+
+## PR
+
+在團隊開發中，一個好的 PR(Pull Request)是非常重要的，尤其是日後回過頭來每個團隊成員都可以了解 commit 的脈絡。
+
+```
+### Background
+### Changes
+### Notes
+
+<!-- optional -->
+### Close Issues
+Closes #1
+```
+
+close 只會在推送到預設分支或是 master 才會自動關閉
